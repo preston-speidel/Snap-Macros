@@ -12,14 +12,12 @@ struct RingGrid: View {
     var body: some View {
         let (cals, prot, carbs, fats) = totals
         VStack(alignment: .center, spacing: 10) {
-            // Large Calories ring (size 200)
             CircularRingView(title: "Calories",
                              value: cals,
                              goal: max(goals.calories, 1),
                              color: .green,
                              size: 200)
 
-            // Three rings in a row with vertical offsets like your NutritionView
             HStack(spacing: 30) {
                 CircularRingView(title: "Carbs",
                                  value: carbs,

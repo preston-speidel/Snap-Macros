@@ -39,7 +39,7 @@ struct HomeView: View {
                             .padding(.top, 8)
                     }
 
-                    // Short Today preview
+                    //short today preview
                     TodayPreview()
                         .padding(.horizontal)
                 }

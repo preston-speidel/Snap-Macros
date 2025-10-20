@@ -61,7 +61,7 @@ struct CameraCaptureView: View {
     }
 }
 
-// Minimal UIImagePickerController wrapper for SwiftUI
+//minimal UIImagePickerController wrapper for SwiftUI
 final class ImagePickerCoordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
     let picker = UIImagePickerController()
     var completion: (UIImage?) -> Void

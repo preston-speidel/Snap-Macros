@@ -10,7 +10,7 @@ import Foundation
 
 final class GoalsViewModel: ObservableObject {
     @Published var goals: MacroGoals = {
-        // Load from UserDefaults if present; else defaults
+        //load from UserDefaults if present else use the defaults
         if let data = UserDefaults.standard.data(forKey: "goals"),
            let g = try? JSONDecoder().decode(MacroGoals.self, from: data) {
             return g
@@ -28,16 +28,16 @@ final class GoalsViewModel: ObservableObject {
 }
 
 final class TodayViewModel: ObservableObject {
-    // Running totals for today (updates when user taps "Add Macros")
+    //running totals for today (updates when user taps "Add Macros")
     @Published var calories = 0
     @Published var protein = 0
     @Published var carbs = 0
     @Published var fats = 0
 
-    // Today’s feed of meals with images
+    //today’s feed of meals with images
     @Published var todayMeals: [MealEstimate] = []
 
-    // Fake seed so the UI shows content at milestone time
+    //fake seed so the UI shows content
     func seedFake() {
         if todayMeals.isEmpty {
             todayMeals = [MockData.sampleEstimate]
@@ -53,14 +53,14 @@ final class TodayViewModel: ObservableObject {
     }
 
     func resetForNewDay() {
-        // Photos are dropped (imageData) by letting todayMeals go empty
+        //photos are dropped (imageData) by letting todayMeals go empty
         todayMeals = []
         calories = 0; protein = 0; carbs = 0; fats = 0
     }
 }
 
 final class HistoryViewModel: ObservableObject {
-    // Numeric-only persistent totals — fake data for milestone
+    //numeric only persistent totals — fake data
     @Published var pastDays: [DayTotals] = MockData.sampleHistory
 
     func appendYesterdayFrom(today: TodayViewModel) {
@@ -93,10 +93,5 @@ final class AnalysisViewModel: ObservableObject {
         }
     }
 
-    // MARK: REAL API CALL goes here
-    // TODO: Replace `analyze(image:)` body with network call to your chosen vision API
-    // 1) JPEG compress -> Data
-    // 2) Build multipart/form-data or base64 JSON as required by the API
-    // 3) Send with URLSession, handle errors/timeouts
-    // 4) Parse (title, calories, protein, carbs, fats, breakdown) into `MealEstimate`
+    //Todo AI API CAll
 }
