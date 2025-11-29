@@ -20,37 +20,46 @@ struct GoalsView: View {
                     Text("Calories")
                     Spacer()
                     Text("\(goalsVM.goals.calories) kcal")
+                    Stepper(value: $goalsVM.goals.calories, in: 0...6000, step: 50) {
+                        EmptyView()
+                    }
+                    .labelsHidden() // hides the default Stepper label
                 }
-                Stepper(value: $goalsVM.goals.calories, in: 0...6000, step: 50) {
-                    EmptyView()
-                }
+                .padding(.horizontal)
+                
 
                 HStack {
                     Text("Protein")
                     Spacer()
                     Text("\(goalsVM.goals.protein) g")
+                    Stepper(value: $goalsVM.goals.protein, in: 0...400) {
+                        EmptyView()
+                    }
+                    .labelsHidden() // hides the default Stepper label
                 }
-                Stepper(value: $goalsVM.goals.protein, in: 0...400) {
-                    EmptyView()
-                }
+                .padding(.horizontal)
 
                 HStack {
                     Text("Carbs")
                     Spacer()
                     Text("\(goalsVM.goals.carbs) g")
+                    Stepper(value: $goalsVM.goals.carbs, in: 0...600) {
+                        EmptyView()
+                    }
+                    .labelsHidden() // hides the default Stepper label
                 }
-                Stepper(value: $goalsVM.goals.carbs, in: 0...600) {
-                    EmptyView()
-                }
+                .padding(.horizontal)
 
                 HStack {
                     Text("Fats")
                     Spacer()
                     Text("\(goalsVM.goals.fats) g")
+                    Stepper(value: $goalsVM.goals.fats, in: 0...250) {
+                        EmptyView()
+                    }
+                    .labelsHidden() // hides the default Stepper label
                 }
-                Stepper(value: $goalsVM.goals.fats, in: 0...250) {
-                    EmptyView()
-                }
+                .padding(.horizontal)
 
                 Spacer()
             }

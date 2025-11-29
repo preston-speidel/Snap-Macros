@@ -6,6 +6,12 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		B2C4FCDD2EC26D4F00184115 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B2C4FCDC2EC26D4F00184115 /* StoreKit.framework */; };
+		B2C4FCE02EC2782200184115 /* RevenueCat in Frameworks */ = {isa = PBXBuildFile; productRef = B2C4FCDF2EC2782200184115 /* RevenueCat */; };
+		B2C4FCE22EC2782200184115 /* RevenueCatUI in Frameworks */ = {isa = PBXBuildFile; productRef = B2C4FCE12EC2782200184115 /* RevenueCatUI */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		B29827632E9D5FC10008460B /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -27,6 +33,7 @@
 		B29827552E9D5FC00008460B /* Snap Macros.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Snap Macros.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B29827622E9D5FC10008460B /* Snap MacrosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Snap MacrosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B298276C2E9D5FC10008460B /* Snap MacrosUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Snap MacrosUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B2C4FCDC2EC26D4F00184115 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -52,6 +59,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B2C4FCE02EC2782200184115 /* RevenueCat in Frameworks */,
+				B2C4FCDD2EC26D4F00184115 /* StoreKit.framework in Frameworks */,
+				B2C4FCE22EC2782200184115 /* RevenueCatUI in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +88,7 @@
 				B29827572E9D5FC00008460B /* Snap Macros */,
 				B29827652E9D5FC10008460B /* Snap MacrosTests */,
 				B298276F2E9D5FC10008460B /* Snap MacrosUITests */,
+				B2C4FCDB2EC26D4F00184115 /* Frameworks */,
 				B29827562E9D5FC00008460B /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,6 +101,14 @@
 				B298276C2E9D5FC10008460B /* Snap MacrosUITests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		B2C4FCDB2EC26D4F00184115 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B2C4FCDC2EC26D4F00184115 /* StoreKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -112,6 +131,8 @@
 			);
 			name = "Snap Macros";
 			packageProductDependencies = (
+				B2C4FCDF2EC2782200184115 /* RevenueCat */,
+				B2C4FCE12EC2782200184115 /* RevenueCatUI */,
 			);
 			productName = "Snap Macros";
 			productReference = B29827552E9D5FC00008460B /* Snap Macros.app */;
@@ -195,6 +216,9 @@
 			);
 			mainGroup = B298274C2E9D5FC00008460B;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				B2C4FCDE2EC2782200184115 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = B29827562E9D5FC00008460B /* Products */;
 			projectDirPath = "";
@@ -400,11 +424,14 @@
 				DEVELOPMENT_TEAM = 3ZB3RJUUF8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = AIMacros;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "SnapMacros uses the camera to analyze meals";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "SnapMacros lets you pick an image to analyze";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -413,6 +440,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "PrestonSpeidel.Snap-Macros";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -432,11 +463,14 @@
 				DEVELOPMENT_TEAM = 3ZB3RJUUF8;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = AIMacros;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "SnapMacros uses the camera to analyze meals";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "SnapMacros lets you pick an image to analyze";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -445,6 +479,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "PrestonSpeidel.Snap-Macros";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
 				SWIFT_DEFAULT_ACTOR_ISOLATION = MainActor;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -578,6 +616,30 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		B2C4FCDE2EC2782200184115 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/RevenueCat/purchases-ios-spm.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.47.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		B2C4FCDF2EC2782200184115 /* RevenueCat */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B2C4FCDE2EC2782200184115 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
+			productName = RevenueCat;
+		};
+		B2C4FCE12EC2782200184115 /* RevenueCatUI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = B2C4FCDE2EC2782200184115 /* XCRemoteSwiftPackageReference "purchases-ios-spm" */;
+			productName = RevenueCatUI;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = B298274D2E9D5FC00008460B /* Project object */;
 }

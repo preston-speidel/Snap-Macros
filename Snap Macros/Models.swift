@@ -47,3 +47,11 @@ struct DayTotals: Identifiable, Hashable, Codable {
     var fats: Int
 }
 
+struct DailySummary: Identifiable, Codable {
+    let id = UUID()
+    let date: Date        // start-of-day date
+    let calories: Int
+    let protein: Int
+    let carbs: Int
+    let fats: Int
+}

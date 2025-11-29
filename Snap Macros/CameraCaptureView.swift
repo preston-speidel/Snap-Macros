@@ -4,98 +4,60 @@
 //
 
 import SwiftUI
-import PhotosUI
+import UIKit
 
+/// SwiftUI wrapper that shows either the Camera (on device) or Photo Library (on simulator / if camera unavailable).
+/// It returns the picked image via the binding and dismisses itself via the environment dismiss.
 struct CameraCaptureView: View {
-    @Environment(\.dismiss) private var dismiss
     @Binding var image: UIImage?
+    @Environment(\.dismiss) private var dismiss
+    @State private var useCamera = UIImagePickerController.isSourceTypeAvailable(.camera)
 
     var body: some View {
-        VStack(spacing: 16) {
-            Text("Capture a meal")
-                .font(.title2).bold()
-
-            if let image {
-                Image(uiImage: image)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(maxHeight: 300)
-                    .clipShape(RoundedRectangle(cornerRadius: 16))
-                    .padding(.horizontal)
-            } else {
-                Text("No image yet").foregroundStyle(.secondary)
-            }
-
-            HStack(spacing: 12) {
-                Button("Open Camera") { presentCamera() }
-                    .buttonStyle(.borderedProminent)
-                Button("Photo Library") { presentLibrary() }
-                    .buttonStyle(.bordered)
-            }
-
-            if image != nil {
-                Button("Use Photo") { dismiss() }
-                    .buttonStyle(.borderedProminent)
-            }
-
-            Spacer()
+        UIKitImagePicker(source: useCamera ? .camera : .photoLibrary,
+                         image: $image) {
+            // Called on cancel or after picking image — close the sheet
+            dismiss()
         }
-        .padding()
-    }
-
-    private func presentCamera() {
-        #if targetEnvironment(simulator)
-        // Simulator lacks camera — fall back to library
-        presentLibrary()
-        #else
-        ImagePicker.present(source: .camera) { picked in
-            self.image = picked
-        }
-        #endif
-    }
-
-    private func presentLibrary() {
-        ImagePicker.present(source: .photoLibrary) { picked in
-            self.image = picked
-        }
+        .ignoresSafeArea()
     }
 }
 
-//minimal UIImagePickerController wrapper for SwiftUI
-final class ImagePickerCoordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-    let picker = UIImagePickerController()
-    var completion: (UIImage?) -> Void
+// MARK: - UIKit bridge
 
-    init(source: UIImagePickerController.SourceType, completion: @escaping (UIImage?) -> Void) {
-        self.completion = completion
-        super.init()
-        picker.sourceType = source
+private struct UIKitImagePicker: UIViewControllerRepresentable {
+    enum Source { case camera, photoLibrary }
+
+    let source: Source
+    @Binding var image: UIImage?
+    var onFinish: () -> Void
+
+    func makeCoordinator() -> Coordinator { Coordinator(self) }
+
+    func makeUIViewController(context: Context) -> UIImagePickerController {
+        let picker = UIImagePickerController()
+        picker.sourceType = (source == .camera) ? .camera : .photoLibrary
         picker.allowsEditing = false
-        picker.delegate = self
+        picker.delegate = context.coordinator
+        return picker
     }
 
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        let img = (info[.originalImage] as? UIImage)
-        completion(img)
-        picker.presentingViewController?.dismiss(animated: true)
-    }
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
 
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        completion(nil)
-        picker.presentingViewController?.dismiss(animated: true)
-    }
-}
+    final class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+        let parent: UIKitImagePicker
+        init(_ parent: UIKitImagePicker) { self.parent = parent }
 
-enum ImagePicker {
-    static func present(source: UIImagePickerController.SourceType, completion: @escaping (UIImage?) -> Void) {
-        guard let root = UIApplication.shared.connectedScenes
-            .compactMap({ ($0 as? UIWindowScene)?.keyWindow })
-            .first?.rootViewController else { return }
-        let coord = ImagePickerCoordinator(source: source, completion: completion)
-        root.present(coord.picker, animated: true)
-    }
-}
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            parent.onFinish()
+        }
 
-extension UIWindowScene {
-    var keyWindow: UIWindow? { windows.first(where: { $0.isKeyWindow }) }
+        func imagePickerController(_ picker: UIImagePickerController,
+                                   didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            if let img = (info[.editedImage] ?? info[.originalImage]) as? UIImage {
+                parent.image = img
+            }
+            parent.onFinish()
+        }
+    }
 }
