@@ -22,20 +22,20 @@ struct RingGrid: View {
                 CircularRingView(title: "Carbs",
                                  value: carbs,
                                  goal: max(goals.carbs, 1),
-                                 color: .green,
+                                 color: .blue,
                                  size: 80)
                 .padding(.bottom, 160)
 
                 CircularRingView(title: "Protein",
                                  value: prot,
                                  goal: max(goals.protein, 1),
-                                 color: .green,
+                                 color: .red,
                                  size: 140)
 
                 CircularRingView(title: "Fats",
                                  value: fats,
                                  goal: max(goals.fats, 1),
-                                 color: .green,
+                                 color: .yellow,
                                  size: 80)
                 .padding(.bottom, 160)
             }

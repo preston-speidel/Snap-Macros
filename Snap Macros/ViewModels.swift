@@ -8,22 +8,12 @@ import Combine
 import UIKit
 import Foundation
 
-/*
 private enum StoreKey {
     static let todayMeals = "SM.today.meals.v1"
     static let todayTotals = "SM.today.totals.v1"
     static let lastDay = "SM.last.day.v1"
     static let history = "SM.history.v1"
     static let goals = "SM.goals.v1"
-}
-*/
-
-private enum StoreKey {
-    static let todayMeals = "SM.today.meals.v1"
-    static let todayTotals = "SM.today.totals.v1"
-    static let lastDay    = "SM.last.day.v1"
-    static let history    = "SM.history.v1"
-    static let goals      = "SM.goals.v1"
     static let usageCount = "SM.usage.count.v1"
 }
 
@@ -50,8 +40,6 @@ private func startOfDay(_ date: Date) -> Date {
     Calendar.current.startOfDay(for: date)
 }
 
-// MARK: - Goals
-
 @MainActor
 final class GoalsViewModel: ObservableObject {
     @Published var goals: (calories: Int, protein: Int, carbs: Int, fats: Int) = (2000, 150, 200, 70) {
@@ -72,11 +60,9 @@ final class GoalsViewModel: ObservableObject {
     }
 }
 
-// MARK: - Today
-
 @MainActor
 final class TodayViewModel: ObservableObject {
-    @Published private(set) var todayMeals: [MealEstimate] = []   // keep images while it's "today"
+    @Published private(set) var todayMeals: [MealEstimate] = [] // keep images while it's "today"
     @Published private(set) var calories = 0
     @Published private(set) var protein = 0
     @Published private(set) var carbs = 0
@@ -114,8 +100,6 @@ final class TodayViewModel: ObservableObject {
         persistToday()
     }
 
-    // MARK: - Persistence
-
     private func persistToday() {
         saveCodable(todayMeals, key: StoreKey.todayMeals)
         persistTotals()
@@ -127,14 +111,12 @@ final class TodayViewModel: ObservableObject {
         saveCodable([calories, protein, carbs, fats], key: StoreKey.todayTotals)
     }
 
-    // MARK: - Daily rollover (on first launch of new day)
-
     func rolloverIfNeeded() {
         let today = startOfDay(Date())
         let last = (loadCodable(Date.self, key: StoreKey.lastDay)) ?? today
         guard last != today else { return }
 
-        // 1) Create numeric summary for yesterday
+        // Create numeric summary for yesterday
         let summary = DailySummary(
             date: last,
             calories: calories,
@@ -143,22 +125,20 @@ final class TodayViewModel: ObservableObject {
             fats: fats
         )
 
-        // 2) Append to history
+        // Append to history
         var history = loadCodable([DailySummary].self, key: StoreKey.history) ?? []
         history.insert(summary, at: 0)
         saveCodable(history, key: StoreKey.history)
 
-        // 3) Reset today's state (drop photos)
+        // Reset today's state (drop photos)
         todayMeals = []
         calories = 0; protein = 0; carbs = 0; fats = 0
         aiPhotosUsed = 0
 
-        // 4) Persist empty today + new lastDay
+        // Persist empty today + new lastDay
         persistToday()
     }
 }
-
-// MARK: - History
 
 @MainActor
 final class HistoryViewModel: ObservableObject {

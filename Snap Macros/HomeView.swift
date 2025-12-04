@@ -57,7 +57,7 @@ struct HomeView: View {
                             .padding(.vertical, 10)
                             .frame(maxWidth: .infinity)
                     }
-                    .buttonStyle(.bordered) // smaller, secondary style
+                    .buttonStyle(.bordered)
                     .padding(.horizontal)
 
                     TodayPreview()
@@ -66,7 +66,7 @@ struct HomeView: View {
                 .onAppear {
                     todayVM.rolloverIfNeeded()
                 }            }
-            .navigationTitle("AIMacros")
+            .navigationTitle("SnapMacros")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
@@ -82,20 +82,11 @@ struct HomeView: View {
             // Full-screen analyzing overlay
             .overlay {
                 if analysisVM.isAnalyzing {
-                    ZStack {
-                        Color.black.opacity(0.25).ignoresSafeArea()
-                        VStack(spacing: 10) {
-                            ProgressView()
-                            Text("Analyzing…").font(.headline)
-                        }
-                        .padding(20)
-                        .background(.ultraThinMaterial, in: RoundedRectangle(cornerRadius: 16))
-                    }
-                    .transition(.opacity)
+                    AnalyzingOverlayView()
+                        .transition(.opacity)
                 }
             }
 
-            // One unified sheet
             .sheet(item: $activeSheet) { sheet in
                 switch sheet {
                 case .camera:
@@ -149,7 +140,7 @@ struct HomeView: View {
             }
             .sheet(isPresented: $showManualEntry) {
                 ManualEntrySheet { name, cals, prot, carbs, fats in
-                    // Build a MealEstimate from manual values (defaults handled in sheet)
+                    // Build a MealEstimate from manual values
                     let estimate = MealEstimate(
                         title: name.isEmpty ? "Meal" : name,
                         calories: cals,
@@ -206,7 +197,51 @@ struct HomeView: View {
     }
 }
 
-// MARK: - Today preview & list
+struct AnalyzingOverlayView: View {
+    @State private var bounce = false
+
+    var body: some View {
+        ZStack {
+            Color.black.opacity(0.75)
+                .ignoresSafeArea()
+
+            VStack(spacing: 16) {
+                Text("Analyzing your macros…")
+                    .font(.title3.bold())
+                    .foregroundColor(.white)
+
+                Text("Stay on this screen — this should only take a moment.")
+                    .font(.subheadline)
+                    .foregroundColor(.white.opacity(0.8))
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal)
+
+                HStack(spacing: 12) {
+                    ForEach(0..<3) { index in
+                        Circle()
+                            .fill(Color.white)
+                            .frame(width: 10, height: 10)
+                            .offset(y: bounce ? -8 : 8)
+                            .animation(
+                                .easeInOut(duration: 0.5)
+                                    .repeatForever(autoreverses: true)
+                                    .delay(Double(index) * 0.12),
+                                value: bounce
+                            )
+                    }
+                }
+            }
+            .padding(24)
+            .background(
+                RoundedRectangle(cornerRadius: 20)
+                    .fill(.ultraThinMaterial)
+            )
+        }
+        .onAppear {
+            bounce = true
+        }
+    }
+}
 
 struct TodayPreview: View {
     @EnvironmentObject var todayVM: TodayViewModel
@@ -277,8 +312,6 @@ struct MealRow: View {
         .padding(.vertical, 4)
     }
 }
-
-// MARK: - Manual Entry Sheet
 
 struct ManualEntrySheet: View {
     var onSave: (_ name: String, _ calories: Int, _ protein: Int, _ carbs: Int, _ fats: Int) -> Void

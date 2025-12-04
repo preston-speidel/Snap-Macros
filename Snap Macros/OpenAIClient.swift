@@ -2,8 +2,6 @@
 //  OpenAIClient.swift
 //  Snap Macros
 //
-//  Created by Preston Speidel on 10/27/25.
-//
 
 import Foundation
 import UIKit
@@ -26,19 +24,14 @@ enum OpenAIClientError: LocalizedError {
     }
 }
 
-/// Tiny REST client to analyze a meal photo and return structured macros.
+// REST client to analyze a meal photo and return structured macros
 struct OpenAIClient {
-    /// Cheapest vision-capable model with good accuracy/cost balance.
-    /// You may switch to "gpt-4o" for more accuracy (higher cost).
-    /// Docs: Chat Completions + Vision support.
-    /// Pricing reference indicates **gpt-4o mini** is vision-enabled and low-cost.
-    /// (See citations in the chat response.)
     var model: String = "gpt-4o-mini"
 
-    /// *** Put your key here for class/testing ***
+    // API key here
     private let apiKey: String = "apikey"
 
-    /// Main API: send image, get MealEstimate
+    // Main API: send image, get MealEstimate
     func analyzeMeal(from image: UIImage) async throws -> MealEstimate {
         guard !apiKey.isEmpty && apiKey != "apikey" else { throw OpenAIClientError.missingKey }
         guard let jpeg = image.jpegData(compressionQuality: 0.7) else { throw OpenAIClientError.badImage }

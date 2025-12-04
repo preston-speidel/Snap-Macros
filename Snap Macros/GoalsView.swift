@@ -23,7 +23,7 @@ struct GoalsView: View {
                     Stepper(value: $goalsVM.goals.calories, in: 0...6000, step: 50) {
                         EmptyView()
                     }
-                    .labelsHidden() // hides the default Stepper label
+                    .labelsHidden() //hides the default Stepper label
                 }
                 .padding(.horizontal)
                 
@@ -35,7 +35,7 @@ struct GoalsView: View {
                     Stepper(value: $goalsVM.goals.protein, in: 0...400) {
                         EmptyView()
                     }
-                    .labelsHidden() // hides the default Stepper label
+                    .labelsHidden()
                 }
                 .padding(.horizontal)
 
@@ -46,7 +46,7 @@ struct GoalsView: View {
                     Stepper(value: $goalsVM.goals.carbs, in: 0...600) {
                         EmptyView()
                     }
-                    .labelsHidden() // hides the default Stepper label
+                    .labelsHidden()
                 }
                 .padding(.horizontal)
 
@@ -57,7 +57,7 @@ struct GoalsView: View {
                     Stepper(value: $goalsVM.goals.fats, in: 0...250) {
                         EmptyView()
                     }
-                    .labelsHidden() // hides the default Stepper label
+                    .labelsHidden()
                 }
                 .padding(.horizontal)
 

@@ -6,24 +6,22 @@
 import SwiftUI
 import UIKit
 
-/// SwiftUI wrapper that shows either the Camera (on device) or Photo Library (on simulator / if camera unavailable).
-/// It returns the picked image via the binding and dismisses itself via the environment dismiss.
+// SwiftUI wrapper that shows either the Camera (on device) or Photo Library (on simulator / if camera unavailable)
+// It returns the picked image via the binding and dismisses itself via the environment dismiss
 struct CameraCaptureView: View {
     @Binding var image: UIImage?
     @Environment(\.dismiss) private var dismiss
     @State private var useCamera = UIImagePickerController.isSourceTypeAvailable(.camera)
 
     var body: some View {
-        UIKitImagePicker(source: useCamera ? .camera : .photoLibrary,
-                         image: $image) {
-            // Called on cancel or after picking image — close the sheet
+        //UIKitImagePicker(source: .photoLibrary,
+        UIKitImagePicker(source: useCamera ? .camera : .photoLibrary, image: $image) {
+            //called on cancel or after picking image — close the sheet
             dismiss()
         }
         .ignoresSafeArea()
     }
 }
-
-// MARK: - UIKit bridge
 
 private struct UIKitImagePicker: UIViewControllerRepresentable {
     enum Source { case camera, photoLibrary }
@@ -61,3 +59,4 @@ private struct UIKitImagePicker: UIViewControllerRepresentable {
         }
     }
 }
+

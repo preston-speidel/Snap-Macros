@@ -49,7 +49,7 @@ struct DayTotals: Identifiable, Hashable, Codable {
 
 struct DailySummary: Identifiable, Codable {
     let id = UUID()
-    let date: Date        // start-of-day date
+    let date: Date // start-of-day date
     let calories: Int
     let protein: Int
     let carbs: Int
