@@ -246,6 +246,9 @@ struct HomeView: View {
     }
 }
 ```
+
+![Screenshot](homescreen.png)
+
 ### AnalysisViewModel – Taking the UIImage and Triggering AI
 
 ```swift
@@ -350,6 +353,8 @@ struct OpenAIClient {
 
 ConfirmAnalysisSheet displays the image that came back as part of MealEstimate.
 
+![Screenshot](confirm.png)
+
 ```swift
 if let data = estimate.imageData, let ui = UIImage(data: data) {
     Image(uiImage: ui)
@@ -365,6 +370,8 @@ if let data = estimate.imageData, let ui = UIImage(data: data) {
 ### Today List – Showing the Meal Thumbnail
 
 In the today feed, it will show a small thumbnail of the meal using the same imageData.
+
+![Screenshot](todayMealRow.png)
 
 ```swift
 struct MealRow: View {
