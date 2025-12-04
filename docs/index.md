@@ -457,4 +457,4 @@ There are several other ways to implement similar functionality:
 
 Full source code for this SnapMacros is available here:
 
-- GitHub repo: [https://github.com/your-username/your-repo-name](https://github.com/preston-speidel/Snap-Macros) 
+- GitHub repo: [https://github.com/preston-speidel/Snap-Macros](https://github.com/preston-speidel/Snap-Macros) 
