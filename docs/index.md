@@ -38,3 +38,10 @@ Because we use the device camera, we need a camera usage description:
 <string>This app needs camera access to take meal photos for macro estimation.</string>
 ```
 
+<iframe width="560" height="315"
+src="https://www.youtube.com/embed/GAHWt2HPEIM"
+title="YouTube video player" frameborder="0"
+allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+allowfullscreen>
+</iframe>
+
