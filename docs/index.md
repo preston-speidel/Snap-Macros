@@ -120,6 +120,22 @@ private struct UIKitImagePicker: UIViewControllerRepresentable {
 - UIKitImagePicker uses UIImagePickerController under the hood.
 - When the user picks/cancels, image (the binding) is updated and onFinish() closes the sheet.
 
+Here are a few youtube tutorials I found that were also really helpful in integrating camera capture:
+
+<iframe width="560" height="315"
+src="https://www.youtube.com/watch?v=W60nnRFUGaI"
+title="YouTube video player" frameborder="0"
+allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+allowfullscreen>
+</iframe>
+
+<iframe width="560" height="315"
+src="https://www.youtube.com/watch?v=hB8MTEJj3CA"
+title="YouTube video player" frameborder="0"
+allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+allowfullscreen>
+</iframe>
+
 ### CameraViewModel – Where the Captured Image Lives
 
 You keep the last captured image in a simple view model.
