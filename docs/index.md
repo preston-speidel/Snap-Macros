@@ -50,7 +50,7 @@ allowfullscreen>
 ### OpenAI API Key
 
 Snapmacros sends the image of your food to OpenAI to get the estimated macros, in order for it to work correctly a API key is needed for the calculation.
-```xml
+```swift
 struct OpenAIClient {
     var model: String = "gpt-4o-mini"
     // Put your key here
@@ -64,3 +64,72 @@ struct OpenAIClient {
 
 ### 1. CameraCaptureView – Wrapping UIImagePickerController in SwiftUI
 
+CameraCaptureView is a SwiftUI view that shows either the camera or photo library and returns the picked image through a binding.
+
+File: CameraCaptureView.swift
+```swift
+struct CameraCaptureView: View {
+    @Binding var image: UIImage?
+    @Environment(\.dismiss) private var dismiss
+    @State private var useCamera = UIImagePickerController.isSourceTypeAvailable(.camera)
+
+    var body: some View {
+        UIKitImagePicker(source: useCamera ? .camera : .photoLibrary,
+                         image: $image) {
+            dismiss()
+        }
+        .ignoresSafeArea()
+    }
+}
+```
+The real work is done in the UIKitImagePicker bridge:
+```swift
+private struct UIKitImagePicker: UIViewControllerRepresentable {
+    enum Source { case camera, photoLibrary }
+
+    let source: Source
+    @Binding var image: UIImage?
+    var onFinish: () -> Void
+
+    func makeUIViewController(context: Context) -> UIImagePickerController {
+        let picker = UIImagePickerController()
+        picker.sourceType = (source == .camera) ? .camera : .photoLibrary
+        picker.allowsEditing = false
+        picker.delegate = context.coordinator
+        return picker
+    }
+
+    ...
+
+    final class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
+        let parent: UIKitImagePicker
+
+        ...
+
+        func imagePickerController(_ picker: UIImagePickerController,
+                                   didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            if let img = (info[.editedImage] ?? info[.originalImage]) as? UIImage {
+                parent.image = img
+            }
+            parent.onFinish()
+        }
+    }
+}
+```
+- CameraCaptureView decides camera vs photo library with useCamera.
+- UIKitImagePicker uses UIImagePickerController under the hood.
+- When the user picks/cancels, image (the binding) is updated and onFinish() closes the sheet.
+
+### 2. CameraViewModel – Where the Captured Image Lives
+
+You keep the last captured image in a simple view model.
+
+File: ViewModels.swift
+```swift
+final class CameraViewModel: ObservableObject {
+    @Published var capturedImage: UIImage? = nil
+}
+```
+This lets you:
+- Bind CameraCaptureView directly to cameraVM.capturedImage.
+- React to that image in HomeView once the picker dismisses. 
