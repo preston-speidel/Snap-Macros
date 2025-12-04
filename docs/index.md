@@ -31,7 +31,7 @@ We’ll focus only on the parts of the code that matter for:
 
 ### Info.plist – Camera Permission
 
-Because we use the device camera, we need a camera usage description:
+Because we use the device camera, we need a camera usage description (edit the info.plist):
 
 ```xml
 <key>NSCameraUsageDescription</key>
@@ -44,4 +44,21 @@ title="YouTube video player" frameborder="0"
 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 allowfullscreen>
 </iframe>
+
+### OpenAI API Key
+
+Snapmacros sends the image of your food to OpenAI to get the estimated macros, in order for it to work correctly a API key is needed for the calculation.
+```xml
+struct OpenAIClient {
+    var model: String = "gpt-4o-mini"
+    // Put your key here
+    private let apiKey: String = "apikey"
+}
+```
+
+---
+
+## Step-by-Step: Camera → Image → AI
+
+### 1. CameraCaptureView – Wrapping UIImagePickerController in SwiftUI
 
