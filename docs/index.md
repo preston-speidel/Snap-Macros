@@ -123,14 +123,14 @@ private struct UIKitImagePicker: UIViewControllerRepresentable {
 Here are a few youtube tutorials I found that were also really helpful in integrating camera capture:
 
 <iframe width="560" height="315"
-src="https://www.youtube.com/watch?v=W60nnRFUGaI"
+src="https://www.youtube.com/embed/W60nnRFUGaI"
 title="YouTube video player" frameborder="0"
 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 allowfullscreen>
 </iframe>
 
 <iframe width="560" height="315"
-src="https://www.youtube.com/watch?v=hB8MTEJj3CA"
+src="https://www.youtube.com/embed/hB8MTEJj3CA"
 title="YouTube video player" frameborder="0"
 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
 allowfullscreen>
