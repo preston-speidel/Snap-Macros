@@ -433,6 +433,12 @@ In this tutorial, we focused on the camera and image pipeline in SnapMacros:
  
 ## See Also
 
+[https://developer.apple.com/documentation/avfoundation/photo-capture](https://developer.apple.com/documentation/avfoundation/photo-capture)
+[https://developer.apple.com/documentation/avfoundation](https://developer.apple.com/documentation/avfoundation)
+Youtube videos linked above in the tutorial
+
+
+
 
 
 
