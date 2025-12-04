@@ -3,6 +3,8 @@
 
 ## Overview
 
+This app, **SnapMacros**, is an iOS SwiftUI app that lets users take a photo of a meal, sends it to OpenAI for macro estimation, and logs the meal into a daily nutrition tracker.
+
 This tutorial explains how SnapMacros handles camera images, step by step:
 
 1. Tap **“Snap Meal”**
@@ -25,9 +27,10 @@ We’ll focus only on the parts of the code that matter for:
 
 ### Requirements
 
-- Xcode installed
-- iOS target that supports SwiftUI and `UIImagePickerController`
-- A valid **OpenAI API key** (needed for the actual macro estimation) 
+- Xcode 26
+- iOS 26 SDK
+- Swift 26
+- A valid **OpenAI API key** (needed for the actual macro estimation to work properly)
 
 ### Info.plist – Camera Permission
 
@@ -430,9 +433,28 @@ In this tutorial, we focused on the camera and image pipeline in SnapMacros:
 	- Stores the returned MealEstimate with imageData
 - ConfirmAnalysisSheet and MealRow:
     - Decode imageData and display the photo
+
+### Alternative Approaches
+
+There are several other ways to implement similar functionality:
+
+- Use `PHPickerViewController` or `PhotosPicker` for photo library access only (no direct camera).
+- Use AVFoundation for a fully custom camera UI instead of `UIImagePickerController`.
+- Call other vision APIs instead of OpenAI, while keeping the same camera pipeline. 
  
 ## See Also
 
  - [https://developer.apple.com/documentation/avfoundation/photo-capture](https://developer.apple.com/documentation/avfoundation/photo-capture)
  - [https://developer.apple.com/documentation/avfoundation](https://developer.apple.com/documentation/avfoundation)
-Youtube videos linked above in the tutorial
+
+### YouTube Tutorials
+
+- Integrating Camera with SwiftUI App – [https://www.youtube.com/watch?v=W60nnRFUGaI](https://www.youtube.com/watch?v=W60nnRFUGaI)
+- SwiftUI Photos & Camera Tutorial (iOS) – [https://www.youtube.com/watch?v=hB8MTEJj3CA](https://www.youtube.com/watch?v=hB8MTEJj3CA) 
+- UIImagePickerController with SwiftUI (example) – [https://www.youtube.com/watch?v=GAHWt2HPEIM](https://www.youtube.com/watch?v=GAHWt2HPEIM) 
+
+### Source Code
+
+Full source code for this SnapMacros is available here:
+
+- GitHub repo: [https://github.com/your-username/your-repo-name](https://github.com/preston-speidel/Snap-Macros) 
