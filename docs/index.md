@@ -33,6 +33,8 @@ We’ll focus only on the parts of the code that matter for:
 
 Because we use the device camera, we need a camera usage description (edit the info.plist):
 
+![Screenshot](infoplistCamera.png)
+
 ```xml
 <key>NSCameraUsageDescription</key>
 <string>This app needs camera access to take meal photos for macro estimation.</string>
