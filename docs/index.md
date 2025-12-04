@@ -143,12 +143,12 @@ HomeView contains the following:
 - The confirm sheet that shows the result and image
 
 This is the flow of the app:
-    1.	Snap Meal → activeSheet = .camera
-	2.	.camera sheet shows CameraCaptureView(image: $cameraVM.capturedImage)
-	3.	When that sheet disappears, onDisappear checks cameraVM.capturedImage
-	4.	If an image exists, analysisVM.analyze(image: img) is called
-	5.	On success → activeSheet = .confirm (shows confirm sheet with image)
-	6.	On confirm → MealEstimate is saved and image is stored in imageData
+	- Snap Meal → activeSheet = .camera
+	- .camera sheet shows CameraCaptureView(image: $cameraVM.capturedImage)
+	- When that sheet disappears, onDisappear checks cameraVM.capturedImage
+	- If an image exists, analysisVM.analyze(image: img) is called
+	- On success → activeSheet = .confirm (shows confirm sheet with image)
+	- On confirm → MealEstimate is saved and image is stored in imageData
 
 File: HomeView.swift
 ```swift
