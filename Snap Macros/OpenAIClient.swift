@@ -29,7 +29,7 @@ struct OpenAIClient {
     var model: String = "gpt-4o-mini"
 
     // API key here
-    private let apiKey: String = "apikey"
+    private let apiKey: String = "API_KEY"
 
     // Main API: send image, get MealEstimate
     func analyzeMeal(from image: UIImage) async throws -> MealEstimate {
