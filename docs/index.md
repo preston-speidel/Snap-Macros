@@ -7,6 +7,8 @@ Platform focus area: iOS Camera and Media Capture with SwiftUI
 
 This app, **SnapMacros**, is an iOS SwiftUI app that lets users take a photo of a meal, sends it to OpenAI for macro estimation, and logs the meal into a daily nutrition tracker.
 
+[Link to SnapMacros Presentation](https://www.youtube.com/watch?v=W3KrSZb8gQ8)
+
 This tutorial explains how SnapMacros handles camera images, step by step:
 
 1. Tap **“Snap Meal”**
